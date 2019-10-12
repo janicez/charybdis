@@ -230,6 +230,7 @@ inetport(struct Listener *listener)
 
 	listener->F = F;
 
+	fcntl (rb_get_fd(listener->F), F_SETFD, fcntl(rb_get_fd(listener->F), F_GETFD, 0) | FD_CLOEXEC);
 	rb_accept_tcp(listener->F, accept_precallback, accept_callback, listener);
 	return 1;
 }
